@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: microservice-expedition
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: terre
+Implementation-Vendor-Id: com.mexpedition
+Build-Jdk: 1.8.0_151
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/mexpedition
+Created-By: Maven Integration for Eclipse
+

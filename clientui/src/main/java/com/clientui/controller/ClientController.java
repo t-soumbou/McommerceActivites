@@ -1,9 +1,11 @@
 package com.clientui.controller;
 
 import com.clientui.beans.CommandeBean;
+import com.clientui.beans.ExpeditionBean;
 import com.clientui.beans.PaiementBean;
 import com.clientui.beans.ProductBean;
 import com.clientui.proxies.MicroserviceCommandeProxy;
+import com.clientui.proxies.MicroserviceExpeditionProxy;
 import com.clientui.proxies.MicroservicePaiementProxy;
 import com.clientui.proxies.MicroserviceProduitsProxy;
 import org.slf4j.Logger;
@@ -33,6 +35,9 @@ public class ClientController {
 
     @Autowired
     private MicroservicePaiementProxy paiementProxy;
+    
+    @Autowired
+    private MicroserviceExpeditionProxy expeditionProxy;
 
 
     Logger log = LoggerFactory.getLogger(this.getClass());
@@ -55,6 +60,18 @@ public class ClientController {
 
 
         return "Accueil";
+    }
+    
+    @RequestMapping("/suivi/{id}")
+    public String suiviExpedition(@PathVariable int id,  Model model){
+
+        ExpeditionBean expedition = expeditionProxy.recupererUneExpedition(id);
+        int commandeNumber =  expedition.getIdCommande();
+        String state = getStateAsString(expedition);
+        model.addAttribute("commandeNumber", commandeNumber);
+        model.addAttribute("state", state);
+
+        return "infoExpedition";
     }
 
     /*
@@ -128,5 +145,19 @@ public class ClientController {
     private Long numcarte() {
 
         return ThreadLocalRandom.current().nextLong(1000000000000000L,9000000000000000L );
+    }
+    
+    private String getStateAsString(ExpeditionBean expedition) {
+    	String state = null;
+    	if(expedition.getEtat() == 0) {
+    		state ="En préparation";
+    	}
+    	if(expedition.getEtat() == 1) {
+    		state ="Expédiée";
+    	}
+    	if(expedition.getEtat() == 2) {
+    		state ="Livrée";
+    	}
+    	return state;
     }
 }

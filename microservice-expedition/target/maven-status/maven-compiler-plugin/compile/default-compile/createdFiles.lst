@@ -1,0 +1,5 @@
+com\mexpedition\dao\ExpeditionDao.class
+com\mexpedition\web\controller\ExpeditionController.class
+com\mexpedition\web\exception\ExpeditionIntrouvableException.class
+com\mexpedition\model\Expedition.class
+com\mexpedition\MexpeditionApplication.class
